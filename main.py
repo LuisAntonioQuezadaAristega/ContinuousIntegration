@@ -27,9 +27,21 @@ class Membership:
 
 class Features:
 
-    def __init__(self, name, price):
+    def __init__(self, name, price, available=True):
         self.name = name
         self.price = price
+        self.available = available
+
+    def toggle_availability(self):
+        """Alterna la disponibilidad de la característica."""
+        self.available = not self.available
+        status = "available" if self.available else "unavailable"
+        print(f"Feature '{self.name}' is now {status}.")
+
+    def display_info(self):
+        """Muestra información sobre la característica adicional."""
+        availability = "Available" if self.available else "Unavailable"
+        print(f"Feature: {self.name} | Price: ${self.price} | Status: {availability}")
 
 
 class Shoppincart:
