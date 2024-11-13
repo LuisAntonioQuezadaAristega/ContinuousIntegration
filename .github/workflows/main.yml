@@ -6,3 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Actualizado"
+
+on:
+  schedule:
+    - cron: 0 * * * *
+
+jobs:
+  saludar-hora:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "¡Hola bb!"

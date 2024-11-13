@@ -25,7 +25,7 @@ class Membership:
         return total_cost
  
 
-class Features:
+class AdditionalFeatures:
 
     def __init__(self, name, price, available=True):
         self.name = name
@@ -44,7 +44,7 @@ class Features:
         print(f"Feature: {self.name} | Price: ${self.price} | Status: {availability}")
 
 
-class Shoppincart:
+class ShoppingCart:
     def __init__(self):
         self.memberships = []  # Lista de membresías seleccionadas
         self.total_price = 0
