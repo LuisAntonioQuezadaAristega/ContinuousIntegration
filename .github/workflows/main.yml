@@ -3,5 +3,6 @@ on:
 
 jobs:
   ejecutar:
+    runs-on: ubuntu-latest
     steps:
       - run: echo "Actualizado"
