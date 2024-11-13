@@ -1,0 +1,9 @@
+on:
+  schedule:
+    - cron: 0 * * * *
+
+jobs:
+  saludar:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "¡Hola!"
