@@ -77,7 +77,9 @@ class ShoppingCart:
         if not self.memberships:
             print("The cart is empty.")
             return
-
+        # Recalcular el costo total 
+        self.total_price = sum([membership.calculate_total_cost() for membership in self.memberships])
+        
         print("\nShopping Cart:")
         for i, membership in enumerate(self.memberships, start=1):
             print(f"{i}. {membership.name} - ${membership.calculate_total_cost():.2f}")
@@ -94,9 +96,89 @@ class ShoppingCart:
 
 
 def main():
+    # Crear ejemplos de membresías
+    basic_membership = Membership("Basic", 50)
+    premium_membership = Membership("Premium", 100, is_premium=True)
+    family_membership = Membership("Family", 80)
 
-    print("In development.")
+    # Crear características adicionales
+    personal_training = AdditionalFeatures("Personal Training", 20)
+    group_classes = AdditionalFeatures("Group Classes", 15)
 
+    # Crear un carrito de compras
+    cart = ShoppingCart()
+
+    # Simular interacción del usuario
+    while True:
+        print("\n--- Gym Membership Shop ---")
+        print("1. View available memberships")
+        print("2. Add membership to cart")
+        print("3. Add additional features to a membership")
+        print("4. View available additional features")
+        print("5. Toggle availability of a feature")
+        print("6. View cart")
+        print("7. Clear cart")
+        print("8. Checkout and apply discounts")
+        print("9. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            print("\nAvailable Memberships:")
+            print("1. Basic - $50")
+            print("2. Premium - $100 (15% surcharge for premium features)")
+            print("3. Family - $80")
+        elif choice == "2":
+            membership_choice = input("\nEnter the number of the membership to add (1-Basic, 2-Premium, 3-Family): ")
+            if membership_choice == "1":
+                cart.add_membership(basic_membership)
+            elif membership_choice == "2":
+                cart.add_membership(premium_membership)
+            elif membership_choice == "3":
+                cart.add_membership(family_membership)
+            else:
+                print("Invalid choice.")
+        elif choice == "3":
+            if cart.memberships:
+                feature_choice = input("\nAdd features to which membership? (Enter 1, 2, ...): ")
+                if feature_choice.isdigit() and 1 <= int(feature_choice) <= len(cart.memberships):
+                    selected_membership = cart.memberships[int(feature_choice) - 1]
+                    feature_to_add = input("\nEnter the feature to add (1-Personal Training, 2-Group Classes): ")
+                    if feature_to_add == "1":
+                        selected_membership.add_feature(personal_training)
+                    elif feature_to_add == "2":
+                        selected_membership.add_feature(group_classes)
+                    else:
+                        print("Invalid feature choice.")
+                else:
+                    print("Invalid membership selection.")
+            else:
+                print("No memberships in the cart.")
+        elif choice == "4":
+            print("\nAvailable Additional Features:")
+            personal_training.display_info()
+            group_classes.display_info()
+        elif choice == "5":
+            toggle_choice = input("\nEnter the feature to toggle availability (1-Personal Training, 2-Group Classes): ")
+            if toggle_choice == "1":
+                personal_training.toggle_availability()
+            elif toggle_choice == "2":
+                group_classes.toggle_availability()
+            else:
+                print("Invalid choice.")
+        elif choice == "6":
+            cart.display_cart()
+        elif choice == "7":
+            cart.clear_cart()
+        elif choice == "8":
+            cart.calculate_discount()
+            cart.display_cart()
+        elif choice == "9":
+            print("Exiting the shop. Thank you!")
+            break
+        else:
+            print("Invalid option. Please try again.")
 
 if __name__ == "__main__":
     main()
+
